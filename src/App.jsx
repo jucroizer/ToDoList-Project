@@ -1,5 +1,28 @@
+import { useState } from "react"
+import { nanoid } from "nanoid"
+import ListItem from "./components/ListItem"
+
 function App() {
  
+  const [toDoList, setToDoList] = useState([
+    {
+      id: nanoid(4),
+      content: "item 1"
+    },
+    {
+      id: nanoid(4),
+      content: "item 2"
+    },
+    {
+      id: nanoid(4),
+      content: "item 3"
+    }
+  ])
+
+  function deleteToDo(id){
+    setToDoList(toDoList.filter(todo => todo.id !== id))
+  }
+
   return (
     <div className="h-screen bg-slate-900">
       <div className="max-w-4xl mx-auto pt-20 px-6">
@@ -19,6 +42,9 @@ function App() {
         </form>
 
         <ul>
+          {toDoList.map(item => (
+            <ListItem key={item.id} itemData={item} deleteToDo={deleteToDo}/>
+          ))}
           
         </ul>
       </div>
